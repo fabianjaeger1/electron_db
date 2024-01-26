@@ -1,6 +1,7 @@
 const { app, BrowserWindow , ipcMain} = require('electron');
 const path = require('path');
 const url = require('url');
+const {PythonShell} = require('python-shell');
 
 let mainWindow;
 
@@ -37,6 +38,22 @@ function createWindow() {
 
 app.whenReady().then(() => {
     createWindow();
+    // PythonShell.run('./backend/main.py', null).then(messages=>{
+    //     console.log("Test");
+    // });
+
+    let options = {
+        mode: 'text',
+        args: [input.value]
+    }; 
+
+    // PythonShell.runString('./backend/main.py', options, function (err, results) {
+    //     console.log('finished');
+    //     console.log(results);
+    //   });
+
+    // PythonShell.run('./backend/main.py')
+
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
