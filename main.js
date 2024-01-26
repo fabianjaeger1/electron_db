@@ -67,17 +67,18 @@ app.whenReady().then(() => {
     //     console.log("Test");
     // });
 
-    let options = {
-        mode: 'text',
-        args: [input.value]
-    }; 
+    // let options = {
+    //     mode: 'text',
+    //     args: [input.value]
+    // }; 
 
-    PythonShell.runString('./backend/main.py', options, function (err, results) {
+    PythonShell.run("/Users/fabianjaeger/Developer/electron_app/backend/main.py", null, function (err, results) {
+        if (err) console.log(err);
         console.log('finished');
         console.log(results);
-      });
+    });
 
-    PythonShell.run('./backend/main.py')
+    // PythonShell.run('./backend/main.py')
 
 
     app.on('activate', () => {
@@ -85,16 +86,24 @@ app.whenReady().then(() => {
             createWindow();
         }
     
-    ipcMain.on('load-second-page', () => {
-        console.log("loading second page")
-        // Load the second internal page
-        mainWindow.loadFile(path.join(__dirname, 'settings.html'));
-        });
+    // ipcMain.on('load-second-page', () => {
+    //     console.log("loading second page")
+    //     // Load the second internal page
+    //     mainWindow.loadFile(path.join(__dirname, 'settings.html'));
+    //     });
     });
 });
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
+    if (process.platform == 'darwin') {
+        console.log("closing")
+        fetch(`http://127.0.0.1:49002/shutdown`).then((data)=>{      
+            return data.text();
+        }).then((text)=>{
+          console.log("data: ", text);
+        }).catch(e=>{
+          console.log(e);
+        })
         app.quit();
     }
 });

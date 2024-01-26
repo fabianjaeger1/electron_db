@@ -117,12 +117,32 @@ document.addEventListener('DOMContentLoaded', function() {
     var button = document.getElementById('sendbutton');
     var buttonImage = button.querySelector('img');
     var showSettings = document.getElementById('showSettings')
+    var searchSettings = document.getElementById('showSearch')
 
-    showSettings.addEventListener('click', () => {
+    searchSettings.addEventListener('click', () => {
         // mainWindow.ipcRender.send('message:showSettings');
-        console.log('clicked showSettings');
+        console.log("entered listener")
+        fetch(`http://127.0.0.1:49002/search/kdfhlas;dkfas`).then((data)=>{      
+            return data.text();
+        }).then((text)=>{
+          console.log("data: ", text);
+        }).catch(e=>{
+          console.log(e);
+        })
+        console.log('clicked searchSettings');
     });
     // print(buttonImage)
+
+    showSettings.addEventListener('pressed', function() {
+        console.log("entered listener")
+        fetch(`http://127.0.0.1:49002/search/kdfhlas;dkfas`).then((data)=>{      
+            return data.text();
+        }).then((text)=>{
+          console.log("data: ", text);
+        }).catch(e=>{
+          console.log(e);
+        })
+    });
 
     textField.addEventListener('input', function() {
         if (textField.value !== '' && textField.value !== textField.placeholder) {
