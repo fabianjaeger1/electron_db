@@ -2,6 +2,7 @@ const { app, BrowserWindow , ipcMain} = require('electron');
 const path = require('path');
 const url = require('url');
 const {PythonShell} = require('python-shell');
+const { create } = require('domain');
 
 let mainWindow;
 
@@ -12,10 +13,22 @@ function deleteText() {
     if (textField.value !== textField.placeholder) {
       textField.value = ''; // Clear the text field
     }
-}
-    
+}    
+// function createWindow() {
+//     mainWindow = new BrowserWindow({
+//         width: 1200,
+//         height: 800,
+//         // resizable: false,
+//         webPreferences: {
+//             preload: path.join(__dirname, 'preload.js'),
+//             nodeIntegration: true
+//         }
+//     });
+
+//     mainWindow.loadFile('index.html');
+// }
 function createWindow() {
-    mainWindow = new BrowserWindow({
+    return new BrowserWindow({
         width: 1200,
         height: 800,
         // resizable: false,
@@ -23,9 +36,18 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true
         }
-    });
+    }); 
+}
 
-    mainWindow.loadFile('index.html');
+
+function showSearchWindow() {
+    mainWindow.loadFile("index.html")
+        .then(() => { mainWindow.show();})
+}
+
+function showSettingsWindow() {
+    mainWindow.loadFile("settings.html")
+        .then(() => { mainWindow.show(); })
 }
 
 // ipcMain.on('change-view', ()=>{
@@ -37,7 +59,10 @@ function createWindow() {
 // });
 
 app.whenReady().then(() => {
-    createWindow();
+    mainWindow = createWindow();
+    // createWindow();
+    // showSettingsWindow();
+    showSearchWindow();
     // PythonShell.run('./backend/main.py', null).then(messages=>{
     //     console.log("Test");
     // });
@@ -47,12 +72,12 @@ app.whenReady().then(() => {
         args: [input.value]
     }; 
 
-    // PythonShell.runString('./backend/main.py', options, function (err, results) {
-    //     console.log('finished');
-    //     console.log(results);
-    //   });
+    PythonShell.runString('./backend/main.py', options, function (err, results) {
+        console.log('finished');
+        console.log(results);
+      });
 
-    // PythonShell.run('./backend/main.py')
+    PythonShell.run('./backend/main.py')
 
 
     app.on('activate', () => {

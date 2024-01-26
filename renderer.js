@@ -111,10 +111,17 @@ console.log("Renderer process loaded.")
 // });
 
 
+
 document.addEventListener('DOMContentLoaded', function() {
     var textField = document.getElementById('searchfield');
     var button = document.getElementById('sendbutton');
     var buttonImage = button.querySelector('img');
+    var showSettings = document.getElementById('showSettings')
+
+    showSettings.addEventListener('click', () => {
+        // mainWindow.ipcRender.send('message:showSettings');
+        console.log('clicked showSettings');
+    });
     // print(buttonImage)
 
     textField.addEventListener('input', function() {
