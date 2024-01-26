@@ -14,7 +14,7 @@ def read_root():
 
 
 @app.get("/search/{query}")
-def search(query: int):
+def search(query: str):
     # TODO: Add Vector DB Search query
     return {"query": query}
 
