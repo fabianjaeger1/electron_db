@@ -4,16 +4,10 @@ const url = require('url');
 const {PythonShell} = require('python-shell');
 const { create } = require('domain');
 
+// For popups
+
 let mainWindow;
 
-function deleteText() {
-    var textField = document.getElementById('searchInput');
-
-    // Check if the current value is not the placeholder
-    if (textField.value !== textField.placeholder) {
-      textField.value = ''; // Clear the text field
-    }
-}    
 // function createWindow() {
 //     mainWindow = new BrowserWindow({
 //         width: 1200,
@@ -27,18 +21,42 @@ function deleteText() {
 
 //     mainWindow.loadFile('index.html');
 // }
+
 function createWindow() {
     return new BrowserWindow({
         width: 1200,
         height: 800,
-        // resizable: false,
         webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
             preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: true
-        }
+        },
+        show: false,
     }); 
 }
 
+// ipcMain.handle('open-popup', () => {
+//     const popup = new BrowserWindow({
+//         width: 400,
+//         height: 200,
+//         frame: false,
+//         transparent: true,
+//         webPreferences: {
+//             nodeIntegration: true,
+//         },
+//     });
+  
+//     popup.loadFile(path.join(__dirname, 'settings.html'));
+// });
+
+// function changePage(url) {
+//     mainWindow.loadFile("settings.html");
+// }
+
+
+// ipcMain.on('change-page', (event, url) => {
+//     changePage(url);
+// });
 
 function showSearchWindow() {
     mainWindow.loadFile("index.html")
@@ -49,14 +67,10 @@ function showSettingsWindow() {
     mainWindow.loadFile("settings.html")
         .then(() => { mainWindow.show(); })
 }
-
-// ipcMain.on('change-view', ()=>{
-//     BrowserWindow.getAllWindows()[0].loadURL(url.format({
-//         pathname : path.join(__dirname,'settings.html'),
-//         protocol:'file',
-//         slashes:true
-//     }));
-// });
+// The settings window is the child to main window search
+ipcMain.on("openSetttingsWindow", (event, arg) => {
+    
+});
 
 app.whenReady().then(() => {
     mainWindow = createWindow();
