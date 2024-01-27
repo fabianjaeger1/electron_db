@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Search</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="/eel.js"></script>
+</head>
+<body>
+    <div class="mainparent">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="img/logo.svg" alt="Sidebar Logo" height="80px" width="80px" style="padding-top: 30px"/>
+            </div>
+            <ul class="menu">
+                <!-- <li><a><img src="search.svg"/>Search</a></li>
+                <li><a><img src="settings.svg">Settings</button></a></li> -->
+                <!-- <li><button class="menu-button" id="showSearch" onclick="goToSearchWindow()"><img src="search.svg" alt="Search"> Search</button></li> -->
+                <li><button class="menu-button" id="showSearch" onclick=""><img src="img/search.svg" alt="Search"> Search</button></li>
+                <li><button class="menu-button" id="showSettings" onclick=""><img src="img/settings.svg" alt="Settings"> Settings</button></li>
+            </ul>
+        </div>
+        <div class="container">
+            <!-- Top Navigation Bar -->
+            <div class="top-nav">
+                <div class="logo-container">
+                    <img src="img/logo.svg" alt="My Image" height="120px" width="120px"/>
+                    <h2 style="color: darkslategray;">Find your Files</h2>
+                </div>
+                <div class="searchbar">
+                    <input type="text" class="searchInput" id ="searchfield" placeholder="Ask Anything...">
+                    <!-- <button class="clear-button" onclick="deleteText()">Submit</button> -->
+                    <button id="sendbutton" class="image-button" disabled><img src="img/send.svg" width="50px"/></button>
+                </div>
+            </div>
+        </div> 
+        <div id="myPopup" class="popup">
+        <div class="popup-content"> 
+            <div class="settings-parent">
+                <a href="#" id="overlay" class="overlay"></a>
+                <button id="closePopup" class="close-button"><img src="img/x.svg"/></button>
+                <div class="settings-header">Settings</div>
+                <div class="settings-container">
+                    <div class="settings-tab-header">
+                        <div class="settings-tab-header-group-items">
+                            <div class="settings-tab-header-item"><img src="img/settings.svg">General</div>
+                            <div class="settings-tab-header-item"><img src="img/data.svg">Data</div>
+                        </div>
+                    </div>
+                    <div class="settings-tab-content-container"></div>
+                        <div>test setting</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript" src="../main.js"></script>
+    <script type="text/javascript" src="web/backend/script.js"></script>
+</body> 
+</html>
