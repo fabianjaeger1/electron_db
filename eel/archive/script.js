@@ -1,8 +1,27 @@
+const { ipcRenderer } = require('electron');
+
+console.log("Renderer process loaded.")
+
+// function changePage() {
+//   const newUrl = 'https://example.com'; // Replace with the desired URL
+//   ipcRenderer.send('change-page', newUrl);
+// }
+
+// function openPopup() {
+//   ipcRenderer.invoke('open-popup');
+
+// }
+
+// function togglePopup() {
+//   var popup = document.getElementById('popup');
+//   popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'block' : 'none';
+// }
+
 document.getElementById('overlay').addEventListener('click', function() {
-    console.log("overlay pressed")
-    window.location.hash = ''; // Remove the fragment identifier to dismiss the popup
-  });
-  
+  console.log("overlay pressed")
+  window.location.hash = ''; // Remove the fragment identifier to dismiss the popup
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     var textField = document.getElementById('searchfield'); 
     var sendbutton = document.getElementById('sendbutton');
@@ -12,16 +31,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const settingsPopup = document.getElementById('myPopup');
     const closeSettings = document.getElementById('closePopup');
 
-//   // var popup = document.getElementById('popup');
-// if (!settingsPopup.contains(event.target)) {
-//     // Clicked outside the popup, close it
-//     settingsPopup.style.display = 'none';
-// }
+  //   // var popup = document.getElementById('popup');
+  // if (!settingsPopup.contains(event.target)) {
+  //     // Clicked outside the popup, close it
+  //     settingsPopup.style.display = 'none';
+  // }
 
     var clickableDivs = document.querySelectorAll('.settings-tab-header-item');
 
     clickableDivs.forEach(function (div) {
-    div.addEventListener('click', function() {
+      div.addEventListener('click', function() {
         // Remove 'selected' class from all elements
         clickableDivs.forEach(function (otherDiv) {
             otherDiv.classList.remove('selected');
@@ -33,12 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     closeSettings.addEventListener('click', function () {
-    settingsPopup.classList.remove('show');
+      settingsPopup.classList.remove('show');
     });
 
     showSettings.addEventListener('click', () => {
-    console.log("showSearch button pressed")
-    myPopup.classList.add('show');
+      console.log("showSearch button pressed")
+      myPopup.classList.add('show');
     })
 
     sendbutton.addEventListener('click', () => {
@@ -48,9 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://127.0.0.1:49002/search/${textField.value}`).then((data)=>{      
             return data.text();
         }).then((text)=>{
-        console.log("data: ", text);
+          console.log("data: ", text);
         }).catch(e=>{
-        console.log(e);
+          console.log(e);
         })
         console.log('clicked searchSettings');
     });

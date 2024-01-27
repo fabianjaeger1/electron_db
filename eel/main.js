@@ -74,9 +74,12 @@ ipcMain.on("openSetttingsWindow", (event, arg) => {
 
 app.whenReady().then(() => {
     mainWindow = createWindow();
+    mainWindow.loadURL('http://localhost:8000/frontend/index.html');
+    mainWindow.show(true)
     // createWindow();
+
     // showSettingsWindow();
-    showSearchWindow();
+    // showSearchWindow();
     // PythonShell.run('./backend/main.py', null).then(messages=>{
     //     console.log("Test");
     // });
@@ -110,14 +113,14 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
     if (process.platform == 'darwin') {
-        console.log("closing")
-        fetch(`http://127.0.0.1:49002/shutdown`).then((data)=>{      
-            return data.text();
-        }).then((text)=>{
-          console.log("data: ", text);
-        }).catch(e=>{
-          console.log(e);
-        })
+        // console.log("closing")
+        // fetch(`http://127.0.0.1:49002/shutdown`).then((data)=>{      
+        //     return data.text();
+        // }).then((text)=>{
+        //   console.log("data: ", text);
+        // }).catch(e=>{
+        //   console.log(e);
+        // })
         app.quit();
     }
 });
