@@ -2,7 +2,6 @@ import eel
 
 eel.init('web')
 
-
 def read_query():
     print("test")
 
