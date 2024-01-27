@@ -1,3 +1,11 @@
+// EEL javascript functions
+
+function buttonClicked() {
+    console.log("button clicked js")
+    eel.button_click();
+}
+
+
 document.getElementById('overlay').addEventListener('click', function() {
     console.log("overlay pressed")
     window.location.hash = ''; // Remove the fragment identifier to dismiss the popup
@@ -41,20 +49,13 @@ document.addEventListener('DOMContentLoaded', function() {
     myPopup.classList.add('show');
     })
 
+    // Send query to eel python backend
     sendbutton.addEventListener('click', () => {
-        
-        // mainWindow.ipcRender.send('message:showSettings');
-        console.log("entered listener")
-        fetch(`http://127.0.0.1:49002/search/${textField.value}`).then((data)=>{      
-            return data.text();
-        }).then((text)=>{
-        console.log("data: ", text);
-        }).catch(e=>{
-        console.log(e);
-        })
-        console.log('clicked searchSettings');
+        console.log("clicked send query")
+        eel.return_string(textField.value)
     });
 
+    // Hide and unhide send button depending on whether the query field is empty
     textField.addEventListener('input', function() {
         if (textField.value !== '' && textField.value !== textField.placeholder) {
             buttonImage.style.display = 'inline'
