@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "electron": "^28.2.0"
+  },
+  "dependencies": {
+    "python-shell": "^5.0.0"
+  }
+}

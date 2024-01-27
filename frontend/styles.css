@@ -303,12 +303,13 @@ button img {
 .popup-content {
     display: flex;
     background-color: white;
-    border-radius: 15px;
+    position: relative;
+    border-radius: 12px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
     margin: 10% auto;
     padding: 20x;
     /* border: 1px solid #888888; */
-    width: 35%;
+    width: 40%;
     height: 300px;
     font-weight: bolder;
 }
@@ -380,8 +381,6 @@ button img {
     background-color: #F6F4F4; /* Hover color for non-selected items */
 }
 
-
-
 div {
     display: block;
 }
@@ -402,14 +401,39 @@ div {
 }
 
 .close-button {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 10px;
-    background-color: #333;
-    color: white;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    /* position: fixed; */
+    /* flex: 2; */
+    /* top: 10px;
+    right: 10px; */
+    /* position: relative; */
+    /* right: 10px; */
+    position: absolute;
+    top: 15px; /* Adjust top position as needed */
+    right: 15px;
+    /* padding: 10px; */
+    /* background-color: #333; */
+    border-radius: 20px;
+    /* background-color: blue; */
+    background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.close-button img{
+    display: flex;
+    max-width: 100%; 
+    max-height: 100%;
+}
+
+
+.close-button:hover{
+    background-color: lightgrey;
+    border-radius: 20px;
 }
 
 .settings-parent {
@@ -419,8 +443,9 @@ div {
 
 .settings-header {
     /* background: blue; */
-    flex: 1;
+    /* flex: 1; */
     font-size: 25px;
+    color: darkslategrey;
     padding-left: 30px;
     padding-top: 30px;
 }
