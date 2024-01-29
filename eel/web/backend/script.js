@@ -1,6 +1,8 @@
 // EEL javascript functions
 // const { ipcRenderer } = require('electron');
 
+// const { text } = require("stream/consumers");
+
 
 function hideElementsByClass(className) {
     var elements = document.getElementsByClassName(className);
@@ -20,6 +22,7 @@ document.getElementById('overlay').addEventListener('click', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     var textField = document.getElementById('searchfield'); 
+    var searchBar = document.getElementById('searchbar');
     var sendbutton = document.getElementById('sendbutton');
     var buttonImage = sendbutton.querySelector('img');
     var showSettings = document.getElementById('showSettings')
@@ -116,6 +119,34 @@ document.addEventListener('DOMContentLoaded', function() {
     sendbutton.addEventListener('click', () => {
         console.log("clicked send query")
         eel.return_string(textField.value)
+        // textField.style.position = "absolute";
+        // textField.style.
+        // textField.style.setProperty("--left", "0px");
+        // textField.style.setProperty("--top", "0px");
+
+        var logoblock = document.getElementById("logo-container");
+        logoblock.remove();
+        searchBar.style.transform="translateY(-300px)";
+        // searchBar.style.transition=" all 1s"
+        // logoblock.style.transform="translateY(-1200px)";
+        // logoblock.style.transition=' all 1s';
+
+        logoblock.style.opacity = '0';
+        const transition = document.querySelector(".logo-container");
+
+        transition.addEventListener("transitionend", () => {
+            console.log("Transition ended");
+            logoblock.hidden();
+        });
+
+
+
+
+        
+
+
+        // textField.style.setProperty("--translate", "-50%");
+
     });
 
     // Hide and unhide send button depending on whether the query field is empty
