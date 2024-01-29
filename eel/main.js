@@ -1,4 +1,4 @@
-const { app, BrowserWindow , ipcMain} = require('electron');
+const { app, BrowserWindow , ipcMain, dialog} = require('electron');
 const path = require('path');
 const url = require('url');
 const {PythonShell} = require('python-shell');
@@ -7,6 +7,22 @@ const { create } = require('domain');
 // For popups
 
 let mainWindow;
+
+
+async function handleFileOpen () {
+    const { canceled, filePaths } = await dialog.showOpenDialog({})
+    if (!canceled) {
+        return filePaths[0]
+    }
+}
+
+// const getFileFromUser = () => {
+//     const files = dialog.showOpenDialog({
+//         properties: ['openFile']
+//     });
+//     if (!files) { return; }
+//     console.log(files);
+// };
 
 // function createWindow() {
 //     mainWindow = new BrowserWindow({
@@ -29,7 +45,8 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            preload: path.join(__dirname, 'preload.js'),
+            // preload: path.join(__dirname, 'web/preload.js'),
+            preload: path.join('/Users/fabianjaeger/Developer/electron_app/eel/web/preload.js')
         },
         show: false,
     }); 
@@ -72,11 +89,44 @@ ipcMain.on("openSetttingsWindow", (event, arg) => {
     
 });
 
+ipcMain.on("toMain", (event, args) => {
+    console.log('test')
+    // fs.readFile("path/to/file", (error, data) => {
+    //   // Do something with file contents
+    //   // Send result back to renderer process
+    //   win.webContents.send("fromMain", responseObj);
+    // });
+});
+
+function showPathSelector() {
+    dialog.showOpenDialog(mainWindow, {
+        properties: ['openDirectory'],
+    }).then(result => {
+        const selectedPaths = result.filePaths;
+        console.log('Selected Paths:', selectedPaths);
+    }).catch(err => {
+        console.error(err);
+    });
+}
+
 app.whenReady().then(() => {
+    ipcMain.handle('dialog:openFile', handleFileOpen)
+
+
     mainWindow = createWindow();
     mainWindow.loadURL('http://localhost:8000/frontend/index.html');
     mainWindow.show(true)
+    // getFileFromUser();
     // createWindow();
+
+    ipcMain.handle('show-path-selector', () => {
+        showPathSelector();
+
+
+        // createWindow()
+
+    }); 
+    
 
     // showSettingsWindow();
     // showSearchWindow();

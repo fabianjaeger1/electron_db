@@ -1,6 +1,5 @@
 from .base import BaseContentScanner
 
-
 class PDFContentScanner(BaseContentScanner):
     def __init__(self):
         ...

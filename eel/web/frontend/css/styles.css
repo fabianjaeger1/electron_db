@@ -327,7 +327,12 @@ button img {
     padding: 20px;
     /* flex: 2; */
     overflow: hidden;
+    /* display: none; */
     /* background-color: blue; */
+}
+
+.settings-tab-content-container-item {
+    display: none;
 }
 
 .settings-tab-header {

@@ -1,7 +1,22 @@
+// const { contextBridge, ipcRenderer} = require('electron/renderer')
+//     contextBridge.exposeInMainWorld('myAPI', {
+//     desktop: true
+// })
+
 const { contextBridge, ipcRenderer} = require('electron/renderer')
-    contextBridge.exposeInMainWorld('myAPI', {
-    desktop: true
+
+
+contextBridge.exposeInMainWorld('electronAPI', {
+    openFile: () => ipcRenderer.invoke('dialog:openFile')
 })
+
+// contextBridge.exposeInMainWorld('myAPI', {
+//     desktop: true
+// })
+
+
+
+
 
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
@@ -53,6 +68,28 @@ contextBridge.exposeInMainWorld(
             let validChannels = ipc.render.sendReceive;
             if (validChannels.includes(channel)) {
                 return ipcRenderer.invoke(channel, args);
+            }
+        }
+    }
+);
+
+
+// Expose protected methods that allow the renderer process to use
+// the ipcRenderer without exposing the entire object
+contextBridge.exposeInMainWorld(
+    "api", {
+        send: (channel, data) => {
+            // whitelist channels
+            let validChannels = ["toMain"];
+            if (validChannels.includes(channel)) {
+                ipcRenderer.send(channel, data);
+            }
+        },
+        receive: (channel, func) => {
+            let validChannels = ["fromMain"];
+            if (validChannels.includes(channel)) {
+                // Deliberately strip event as it includes `sender` 
+                ipcRenderer.on(channel, (event, ...args) => func(...args));
             }
         }
     }
