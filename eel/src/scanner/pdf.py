@@ -1,6 +1,7 @@
-from .base import BaseContentScanner
+from src.core import base
 
-class PDFContentScanner(BaseContentScanner):
+
+class PDFContentScanner(base.BaseContentScanner):
     def __init__(self):
         ...
 

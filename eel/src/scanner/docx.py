@@ -1,6 +1,7 @@
-from .base import BaseContentScanner
+from src.core import base
 
-class DOCXContentScanner(BaseContentScanner):
+
+class DOCXContentScanner(base.BaseContentScanner):
     def __init__(self):
         ...
 
